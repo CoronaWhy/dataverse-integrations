@@ -1,0 +1,5 @@
+organization.datafile_id,organization.dataset_id,organization.filename,dataverse.description,dataverse.categories,dataverse.restrict,dataverse.title,dataverse.directoryLabel,dataverse.datafile_id,alma.title,alma.pages,alma.year
+1,test_1,20001_ta_de_v1_0.tsv,"Core data file – 5 Variables, 20 Observations ","[""Data""]",,,,,,,
+2,test_1,20001_do_de_v1_0.pdf,Documentation: Method report and Codebook ,"[""Documentation""]",,,,,,,
+3,test_2,20002_ta_de_v1_0.csv,"Core data file – 6 Variables, 22 Observations ","[""Data""]",,,,,,,
+4,test_2,20002_do_de_v1_0.pdf,Documentation: Method report and Codebook ,"[""Documentation""]",,,,,,,
