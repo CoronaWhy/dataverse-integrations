@@ -32,6 +32,10 @@ class DataverseData():
         self.ds_id = 0
         self.DEBUG = True
         
+    def search(self, thisquery):
+        repositories = self.g.search_repositories(query=thisquery, sort='updated')
+        return repositories
+
     def datasync(self):
         native_api = NativeApi(BASE_URL, API_TOKEN)
         self.ds_id = str(int(self.make_dataset_id(self.REPO).hexdigest(), 16))[:6] ## turn the md5 string into a 6 digits integer
