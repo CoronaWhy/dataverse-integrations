@@ -1,0 +1,13 @@
+DV_ALIAS = 'demo' # name of your dataverse
+BASE_URL = 'http://datasets.coronawhy.org' # URL where the dataverses are hosted *without trailing slash*
+API_TOKEN = 'your-dataverse-token-here' # API token that can be created in your user menu
+REPO = 'mpons/coronawhy-github-dasaset-finder' # Name of the repo ex: mpons/coronawhy-github-dasaset-finder
+GITHUB_TOKEN = 'your-github-token-here' # Token generated in your github account settings
+
+# Don't change this
+PARSABLE_EXTENSIONS_PY = ['py', 'ipynb'] # Leave the array empty if you want to parse all files
+PARSABLE_EXTENSIONS = ['csv', 'json', 'gz', 'fasta', 'xlsx', 'jsonld', 'owl', 'ttl', 'rds', 'txt', 'cvs']
+gitroot = 'https://github.com'
+gituserroot = 'https://raw.githubusercontent.com'
+gitblob = 'blob/master'
+gitmaster = 'master'
