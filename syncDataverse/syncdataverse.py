@@ -13,7 +13,7 @@ import pandas as pd
 
 from datetime import datetime
 from github import Github
-from pyDataverse.api import Api,NativeApi
+from pyDataverse.api import Api, SearchApi, NativeApi
 from pyDataverse.models import Datafile, Dataset
 
 from config import DV_ALIAS, BASE_URL, API_TOKEN, REPO, GITHUB_TOKEN, PARSABLE_EXTENSIONS, gitroot, gituserroot, gitblob, gitmaster
@@ -32,9 +32,27 @@ class DataverseData():
         self.ds_id = 0
         self.DEBUG = True
         
-    def search(self, thisquery):
+    def githubsearch(self, thisquery):
         repositories = self.g.search_repositories(query=thisquery, sort='updated')
         return repositories
+
+    def search(self, thisquery):
+        search_api = SearchApi(BASE_URL, API_TOKEN)
+        return search_api.search(thisquery).json()['data']
+
+    def if_exist(self, thisquery):
+        self.exists = False
+        repoquery = "authorName:%s" % (thisquery)
+        try:
+            for item in self.search(repoquery)['items'][0]['authors']:
+                if item == thisquery:
+                    self.exists = True
+                print(item)
+        except:
+            self.exists = False
+        if self.DEBUG:
+            print(self.exists)
+        return self.exists
 
     def datasync(self):
         native_api = NativeApi(BASE_URL, API_TOKEN)
