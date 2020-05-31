@@ -20,5 +20,6 @@ for thisrepo in repos:
     print(thisrepo)
     dvn = DataverseData(thisrepo, True)
     print(dvn.collect_urls())
-    dvn.datasync()
+    if dvn.urls_found:
+        dvn.datasync()
 
