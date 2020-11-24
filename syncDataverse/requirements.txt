@@ -1,0 +1,6 @@
+git+https://github.com/AUSSDA/pyDataverse.git@develop
+pymongo
+elasticsearch
+#pandas
+#covid19dh
+#pandas-profiling
