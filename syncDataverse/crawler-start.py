@@ -5,6 +5,7 @@ from pyDataverse.api import Api,NativeApi
 from pyDataverse.models import Datafile, Dataset
 
 repos = []
+q = 'covid kg'
 q = 'covid'
 dvn = DataverseData(REPO)
 
