@@ -58,10 +58,15 @@ class DataverseData():
         native_api = NativeApi(BASE_URL, API_TOKEN)
         self.ds_id = str(int(self.make_dataset_id(self.REPO).hexdigest(), 16))[:6] ## turn the md5 string into a 6 digits integer
         metadata = self.make_dataset_metadata(self.REPO)
+        print(metadata)
         self.ds = Dataset()
         self.ds.set(metadata)
         self.ds.displayName=metadata['title']
+        self.ds.json = metadata
+        print(self.ds.get())
         if self.DEBUG:
+            print("[datasync]")
+            print(self.ds)
             print(self.ds_id)
             print(self.ds.displayName)
         self.create_dataset(native_api, self.ds, DV_ALIAS, self.ds_id, BASE_URL)
@@ -114,8 +119,13 @@ class DataverseData():
         return metadata
     
     def create_dataset(self, api, ds, dv_alias, ds_id, base_url):
+        if self.DEBUG:
+            print("\n\n[create_dataset]")
+            print(ds.get())
+            print(ds.to_json())
+        resp = ''
         try:
-            resp = api.create_dataset(dv_alias, ds.json())
+            resp = api.create_dataset(dv_alias, ds.to_json())
             pid = resp.json()['data']['persistentId']
         except:
             print(resp.content)
