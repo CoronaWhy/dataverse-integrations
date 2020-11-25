@@ -96,7 +96,7 @@ class DataverseData():
         repo = self.g.get_repo(repo_name)
         metadata['termsOfAccess'] = ''
         metadata['title'] = 'Automatic uploads from {} github repository'.format(repo_name)
-        metadata['subtitle'] = ''
+        metadata['subtitle'] = 'Automatic uploads from {} github repository'.format(repo_name)
         metadata['author'] = [{"authorName": repo_name,"authorAffiliation": "CoronaWhy"}]
         metadata['dsDescription'] = [{'dsDescriptionValue': ''}]
         metadata['dsDescription'] = [{'dsDescriptionValue': format(repo.get_topics())}]
