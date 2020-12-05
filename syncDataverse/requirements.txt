@@ -4,4 +4,3 @@ elasticsearch
 #pandas
 #covid19dh
 #pandas-profiling
-pygithub

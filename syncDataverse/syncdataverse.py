@@ -18,7 +18,7 @@ from pyDataverse.models import Datafile, Dataset
 
 from config import DV_ALIAS, BASE_URL, API_TOKEN, REPO, GITHUB_TOKEN, PARSABLE_EXTENSIONS, gitroot, gituserroot, gitblob, gitmaster
 #REPO='J535D165/CoronaWatchNL'
-# REPO='Mike-Honey/covid-19-vic-au'
+REPO='Mike-Honey/covid-19-vic-au'
 
 class DataverseData():
     def __init__(self, REPO, validate=False):
@@ -72,7 +72,7 @@ class DataverseData():
         self.create_dataset(native_api, self.ds, DV_ALIAS, self.ds_id, BASE_URL)
         if self.DEBUG:
             print(metadata)
-        self.upload_files_to_dataverse( self.ds_id,self.urls_found)
+        self.upload_files_to_dataverse(self.ds_id, self.urls_found)
         return True
 
     def extract_urls(self, content: str)->list:
@@ -95,7 +95,7 @@ class DataverseData():
         metadata = {}
         repo = self.g.get_repo(repo_name)
         metadata['termsOfAccess'] = ''
-        metadata['title'] = 'Automatic uploads from {} github repository'.format(repo_name)
+        metadata['title'] = format(repo.description)
         metadata['subtitle'] = 'Automatic uploads from {} github repository'.format(repo_name)
         metadata['author'] = [{"authorName": repo_name,"authorAffiliation": "CoronaWhy"}]
         metadata['dsDescription'] = [{'dsDescriptionValue': ''}]
@@ -104,7 +104,7 @@ class DataverseData():
             metadata['dsDescription'] = [ { 'dsDescriptionValue': 'coronavirus' }]
 
         metadata['subject'] = ['Medicine, Health and Life Sciences']
-        metadata['keyword'] = repo.get_topics()
+        #metadata['keyword'] = repo.get_topics()
         metadata['datasetContact'] = [{'datasetContactName': 'https://github.com/{}'.format(repo_name),'datasetContactEmail': 'contact@coronawhy.org'}]
     
         return metadata
@@ -122,13 +122,13 @@ class DataverseData():
         if self.DEBUG:
             print("\n\n[create_dataset]")
             print(ds.get())
-            # print(ds.to_json())
+            print(ds.to_json())
         resp = ''
         try:
-            resp = api.create_dataset(dv_alias, ds.json())
+            resp = api.create_dataset(dv_alias, ds.to_json())
             pid = resp.json()['data']['persistentId']
         except:
-            # print(resp.content)
+            print(resp.content)
             return resp, self.mapping_dsid2pid
     
         self.mapping_dsid2pid[ds_id] = pid
@@ -190,7 +190,7 @@ class DataverseData():
         print('Found {} URLs'.format(len(self.urls_found)))
         return self.urls_found
 
-    def upload_files_to_dataverse(self,ds_id, urls_found):
+    def upload_files_to_dataverse(self, ds_id, urls_found):
         for file, url in urls_found.items():
             columns = []
             #for url in urls:
@@ -224,7 +224,7 @@ class DataverseData():
                 except:
                     continue
         
-                self.upload_datafile(BASE_URL, API_TOKEN, self.ds_id, self.REPO, tmpfile[0], file, url, columns)
+                self.upload_datafile(BASE_URL, API_TOKEN, self.mapping_dsid2pid[ds_id], self.REPO, tmpfile[0], file, url, columns)
         return 
 
 
